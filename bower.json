@@ -1,0 +1,20 @@
+{
+  "name": "realtime-firebase-voting-sscotth",
+  "homepage": "https://github.com/nss-day-cohort-17/realtime-firebase-voting-sscotth",
+  "authors": [
+    "Scott Humphries <git@sscotth.io>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "firebase": "^3.6.7"
+  }
+}
