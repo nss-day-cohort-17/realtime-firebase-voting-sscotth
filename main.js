@@ -19,29 +19,28 @@
     const voteFor = evt.target.closest('.choice').dataset.value
 
     // // go get the current counts
-    // fetch(voteURL)
-    //   .then(res => res.json())
     firebase.database().ref('votes').once('value')
       .then(snap => snap.val())
       .then(data => {
         // patch the new count
         const newCount = data && data[voteFor] ? data[voteFor] += 1 : 1
-
-        // return fetch(voteURL, {
-        //   method: 'PATCH',
-        //   body: JSON.stringify({ [voteFor]: newCount })
-        // })
         return firebase.database().ref('votes').update({ [voteFor]: newCount })
-        .then(() => {
-          document.querySelectorAll('h3').forEach(choice => {
-            const total = Object.values(data).reduce((acc, val) => acc + val)
-            const current = data[choice.closest('.choice').dataset.value]
-            choice.innerText = Math.round(current / total * 100) + "%"
-          })
-        })
       })
       .catch(console.error)
 
     document.querySelectorAll('button').forEach(btn => btn.remove())
+    document.querySelectorAll('.hidden').forEach(item => item.classList.remove('hidden'))
+  }
+
+  firebase.database().ref('votes').on('value', onUpdate)
+
+  function onUpdate (snap) {
+    const data = snap.val()
+
+    document.querySelectorAll('h3').forEach(choice => {
+      const total = Object.values(data).reduce((acc, val) => acc + val)
+      const current = data[choice.closest('.choice').dataset.value]
+      choice.innerText = Math.round(current / total * 100) + "%"
+    })
   }
 }
