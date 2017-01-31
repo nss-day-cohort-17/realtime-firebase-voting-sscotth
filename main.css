@@ -9,5 +9,9 @@
 }
 
 .hidden {
-  display: none
+  display: none;
+}
+
+.clear {
+  clear: both;
 }
